@@ -1,18 +1,17 @@
 import { ParcelDispatcher } from './Dispatch/ParcelDispatcher';
-import { UpdateActionHandler } from './Usage/UpdateActionHandler';
-import { UpdateNameAction, ActionTypes } from './Usage/UpdateNameAction';
-
+import { UpdateHandler } from './Usage/UpdateHandler';
+import { ActionType } from './Usage/ActionType';
+import { Parcel } from './Parcel/Parcel';
 class App {
     public static main(): number {
-        console.log('Hello World');
+        console.log('Hello World3');
 
-        var actionHandler = new UpdateActionHandler();
+        var updateHandler = new UpdateHandler();
 
         var parcelDispatcher = new ParcelDispatcher();
-        console.log(ActionTypes.UpdateName);
-        parcelDispatcher.registerActionHandler(ActionTypes.UpdateName,actionHandler);
+        parcelDispatcher.registerParcelHandler(ActionType.UpdateName,updateHandler);
 
-        parcelDispatcher.publishAsync(new UpdateNameAction("Bob",{"main" : 1 }));
+        parcelDispatcher.publishAsync(ActionType.UpdateName,new Parcel("Bob", { "context var" : "some value"}));
         
         
 

@@ -1,23 +1,24 @@
-import { Action } from '../Actions/Action';
-import { ActionHandler } from '../Actions/ActionHandler';
+import { Parcel } from '../Parcel/Parcel';
+import { ParcelHandler } from '../Parcel/ParcelHandler';
+
 export class ParcelDispatcher {
 
-    actions:WeakMap<Action,Promise<any>>;
-    actionHandlers:WeakMap<any,ActionHandler>;
+    parcels:WeakMap<Parcel,Promise<any>>;
+    parcelHandlers:WeakMap<any,ParcelHandler>;
     constructor(){
-        this.actions = new WeakMap<Action,Promise<any>>();
-        this.actionHandlers = new WeakMap<any,ActionHandler>();
+        this.parcels = new WeakMap<Parcel,Promise<any>>();
+        this.parcelHandlers = new WeakMap<any,ParcelHandler>();
     }
-    publishAsync(action:Action){
-        let actionHandler = this.actionHandlers.get(action.type);
-        if (actionHandler == null){
-            console.error("No action handler available for request",action);
-            throw "No action handler available for request";
+    publishAsync(parcelType:any,parcel:Parcel){
+        let parcelHandler = this.parcelHandlers.get(parcelType);
+        if (parcelHandler == null){
+            console.error("No parcel handler available for request",parcel);
+            throw "No parcel handler available for request";
         }
 
-        this.actions.set(action,actionHandler.handle(action));
+        this.parcels.set(parcelType,parcelHandler.handle(parcel));
     }
-    registerActionHandler(actionType:any,actionHandler:ActionHandler){
-        this.actionHandlers.set(actionType,actionHandler);
+    registerParcelHandler(parcelType:any,parcelHandler:ParcelHandler){
+        this.parcelHandlers.set(parcelType,parcelHandler);
     }
 }
