@@ -3,8 +3,8 @@ import { ActionHandler } from '../Actions/ActionHandler';
 
 export class ParcelDispatcher {
 
-    actions:WeakMap;
-    actionHandlers:WeakMap;
+    actions:WeakMap<Action,Promise<any>>;
+    actionHandlers:WeakMap<string,ActionHandler>;
     constructor(){
         this.actions = new WeakMap<Action,Promise<any>>();
         this.actionHandlers = new WeakMap<string,ActionHandler>();
