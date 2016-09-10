@@ -2,6 +2,7 @@
     "compileOnSave": true,
     "compilerOptions": {
         "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
         "module": "commonjs",
         "target": "ES6",
         "sourceMap": true
@@ -12,7 +13,6 @@
     ],
     "files": [
         "./app.ts",
-        "./typings/modules/es6-promise/index.d.ts",
         "./typings/globals/node/index.d.ts"
     ]
 }

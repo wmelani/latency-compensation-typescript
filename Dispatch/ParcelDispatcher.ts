@@ -1,13 +1,12 @@
 import { Action } from '../Actions/Action';
 import { ActionHandler } from '../Actions/ActionHandler';
-
 export class ParcelDispatcher {
 
     actions:WeakMap<Action,Promise<any>>;
-    actionHandlers:WeakMap<string,ActionHandler>;
+    actionHandlers:WeakMap<any,ActionHandler>;
     constructor(){
         this.actions = new WeakMap<Action,Promise<any>>();
-        this.actionHandlers = new WeakMap<string,ActionHandler>();
+        this.actionHandlers = new WeakMap<any,ActionHandler>();
     }
     publishAsync(action:Action){
         let actionHandler = this.actionHandlers.get(action.type);
@@ -18,7 +17,7 @@ export class ParcelDispatcher {
 
         this.actions.set(action,actionHandler.handle(action));
     }
-    registerActionHandler(actionType:string,actionHandler:ActionHandler){
+    registerActionHandler(actionType:any,actionHandler:ActionHandler){
         this.actionHandlers.set(actionType,actionHandler);
     }
 }
