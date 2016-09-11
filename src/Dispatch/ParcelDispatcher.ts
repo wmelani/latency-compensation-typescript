@@ -3,13 +3,13 @@ import { ParcelHandler } from '../Parcel/ParcelHandler';
 
 export class ParcelDispatcher {
 
-    parcels:WeakMap<Parcel,Promise<any>>;
-    parcelHandlers:WeakMap<any,ParcelHandler>;
+    private parcels:WeakMap<Parcel,Promise<any>>;
+    private parcelHandlers:WeakMap<any,ParcelHandler>;
     constructor(){
         this.parcels = new WeakMap<Parcel,Promise<any>>();
         this.parcelHandlers = new WeakMap<any,ParcelHandler>();
     }
-    publishAsync(parcelType:any,parcel:Parcel){
+    public publishAsync(parcelType:any,parcel:Parcel){
         if (parcelType == null){
             throw new Error("parcelType may not be null");
         }
@@ -22,9 +22,11 @@ export class ParcelDispatcher {
             throw new Error("No parcel handler available for request");
         }
 
-        this.parcels.set(parcelType,parcelHandler.handle(parcel));
+        var promise = parcelHandler.handle(parcel);
+        this.parcels.set(parcelType,promise);
+        return promise;
     }
-    registerParcelHandler(parcelType:any,parcelHandler:ParcelHandler){
+    public registerParcelHandler(parcelType:any,parcelHandler:ParcelHandler){
         if (parcelType == null){
             throw new Error("Parcel type my not be null");
         }

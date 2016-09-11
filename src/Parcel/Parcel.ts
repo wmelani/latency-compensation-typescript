@@ -1,6 +1,6 @@
 export class Parcel {
-    context:any;
-    value:any;
+    private context:any;
+    private value:any;
 
     constructor(value:any,context:any){
         this.value=value;
