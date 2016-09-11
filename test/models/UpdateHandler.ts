@@ -1,5 +1,5 @@
-import { Parcel } from '../Parcel/Parcel'
-import { ParcelHandler } from '../Parcel/ParcelHandler'
+import { Parcel } from '../../src/Parcel/Parcel'
+import { ParcelHandler } from '../../src/Parcel/ParcelHandler'
 
 
 
