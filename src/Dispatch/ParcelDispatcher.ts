@@ -24,6 +24,7 @@ export class ParcelDispatcher {
         
         return new Promise((resolve,reject) => {
             try {
+                parcel.parcelStatus = ParcelStatus.PendingDelivery;
                 var promise = parcelHandler.handle(parcel);
                 this.parcels.set(parcelType,promise);
                 promise.then(

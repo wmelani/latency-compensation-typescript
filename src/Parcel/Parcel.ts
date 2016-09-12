@@ -1,8 +1,8 @@
 export enum ParcelStatus {
-    Pending,
-    PendingDelivery,
-    Delivered,
-    Undeliverable
+    Pending = <any>"Pending",
+    PendingDelivery = <any>"PendingDelivery",
+    Delivered = <any>"Delivered",
+    Undeliverable = <any>"Undeliverable"
 }
 
 export class Parcel {

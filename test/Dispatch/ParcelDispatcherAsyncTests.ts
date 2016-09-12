@@ -62,4 +62,34 @@ export class ParcelDispatcherAsyncTests extends tsUnit.TestClass {
         
     }
 
+    public canHandleMultiplePromisesWithStatus() {
+        var parcelDispatcher = new ParcelDispatcher();
+        var updateHandler = new WaitingUpdateHandler();
+        var parcel1 = new Parcel(1000,"context1");
+        var parcel2 = new Parcel(2000,"context2");
+        var parcel3 = new Parcel(3000,"context3");
+        parcelDispatcher.registerParcelHandler(ActionType.UpdateName,updateHandler);
+        var promise1 = parcelDispatcher.publishAsync(ActionType.UpdateName,parcel1);
+        var promise2 = parcelDispatcher.publishAsync(ActionType.UpdateName,parcel2);
+        var promise3 = parcelDispatcher.publishAsync(ActionType.UpdateName,parcel3);
+        
+        return new Promise((res,rej) => {
+            let times = 0;
+            let interval = setInterval(() => {
+                console.log(`parcel1 - ${parcel1.parcelStatus} parcel2 - ${parcel2.parcelStatus}, parcel3 - ${parcel3.parcelStatus}`)
+                if (parcel1.parcelStatus == ParcelStatus.Delivered 
+                    && parcel2.parcelStatus == ParcelStatus.Delivered 
+                    && parcel3.parcelStatus === ParcelStatus.Delivered){
+                    res("finished");
+                    clearInterval(interval);
+                }
+                if (times > 10){
+                    rej("promise status did not resolve in enough time.");
+                }
+                times++;
+            },500);
+        });
+        
+    }
+
 }
