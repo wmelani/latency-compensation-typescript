@@ -1,9 +1,13 @@
 
 import * as tsUnit from './tsUnit/tsUnit';
 import * as tsUnitAsync from './tsUnit/tsUnitAsync';
-import { ParcelDispatcherTests } from './ParcelDispatcherTests' 
-import { ParcelDispatcherAsyncTests } from './ParcelDispatcherAsyncTests' 
-var testRunner = new tsUnit.Test(ParcelDispatcherTests);
+
+import { ParcelDispatcherTests } from './Dispatch/ParcelDispatcherTests' 
+import { ParcelDispatcherAsyncTests } from './Dispatch/ParcelDispatcherAsyncTests' 
+
+import { ParcelTests } from './Parcel/ParcelTests' 
+
+var testRunner = new tsUnit.Test(ParcelDispatcherTests,ParcelTests);
 var asyncTestRunner = new tsUnitAsync.TestAsync(ParcelDispatcherAsyncTests);
 
 // Run the tests

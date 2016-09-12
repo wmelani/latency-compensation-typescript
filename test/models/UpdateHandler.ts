@@ -17,3 +17,27 @@ export class UpdateHandler implements ParcelHandler{
         });
     }
 }
+
+export class WaitingUpdateHandler implements ParcelHandler{
+    handle(parcel:Parcel):Promise<any> {
+        return new Promise((resolve,reject)=> {
+            setTimeout(() => resolve("Done"),<number>parcel.value);
+            resolve("Done");
+        });
+    }
+}
+export class ErrorInHandleUpdateHandler implements ParcelHandler{
+    handle(parcel:Parcel):Promise<any> {
+        throw new Error("error directly in handle");
+    }
+}
+export class ErrorRejectUpdateHandler implements ParcelHandler{
+    handle(parcel:Parcel):Promise<any> {
+        return new Promise((resolve,reject)=> {
+            reject(ErrorRejectBody);
+        });
+    }
+}
+export const ErrorRejectBody = {"rejection" : "it hurts"};
+
+

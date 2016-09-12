@@ -1,10 +1,10 @@
-import { ParcelDispatcher } from '../src/Dispatch/ParcelDispatcher';
-import { Parcel } from '../src/Parcel/Parcel';
+import { ParcelDispatcher } from '../../src/Dispatch/ParcelDispatcher';
+import { Parcel } from '../../src/Parcel/Parcel';
 
-import { UpdateHandler } from './models/UpdateHandler';
-import { ActionType } from './models/ActionType';
+import { UpdateHandler } from '../models/UpdateHandler';
+import { ActionType } from '../models/ActionType';
 
-import * as tsUnit from './tsUnit/tsUnit';
+import * as tsUnit from '../tsUnit/tsUnit';
 
 
 export class ParcelDispatcherTests extends tsUnit.TestClass {
