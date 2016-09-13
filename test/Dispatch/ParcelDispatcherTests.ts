@@ -1,7 +1,9 @@
 import { ParcelDispatcher } from '../../src/Dispatch/ParcelDispatcher';
+import { ParcelTracker,RetryableParcelTracker } from '../../src/Dispatch/ParcelTracker';
 import { Parcel } from '../../src/Parcel/Parcel';
 
 import { UpdateHandler } from '../models/UpdateHandler';
+import { DefaultParcelTracker } from '../models/ParcelTracker';
 import { ActionType } from '../models/ActionType';
 
 import * as tsUnit from '../tsUnit/tsUnit';
@@ -19,6 +21,14 @@ export class ParcelDispatcherTests extends tsUnit.TestClass {
         this.doesNotThrow( () => 
             parcelDispatcher.registerParcelHandler(ActionType.UpdateName,updateHandler), "should be able to register a parcel dispatcher");
     }
+    canRegisterParcelTracker(){
+        var parcelDispatcher = new ParcelDispatcher();
+        var parcelTracker = new DefaultParcelTracker();
+        this.doesNotThrow( () => 
+            parcelDispatcher.registerParcelTracker(parcelTracker), "should be able to register a parcel dispatcher");
+    }
+    
+
     shouldThrowIfRegisterParcelDispatcherHasNullActionType(){
         var parcelDispatcher = new ParcelDispatcher();
         var updateHandler = new UpdateHandler();

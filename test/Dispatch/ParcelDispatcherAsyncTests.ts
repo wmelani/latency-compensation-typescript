@@ -3,7 +3,7 @@ import { Parcel,ParcelStatus } from '../../src/Parcel/Parcel';
 
 import { UpdateHandler, WaitingUpdateHandler, ErrorInHandleUpdateHandler, ErrorRejectUpdateHandler,ErrorRejectBody } from '../models/UpdateHandler';
 import { ActionType } from '../models/ActionType';
-
+import { DefaultParcelTracker} from '../models/parcelTracker';
 import * as tsUnit from '../tsUnit/tsUnitAsync';
 
 export class ParcelDispatcherAsyncTests extends tsUnit.TestClass {
@@ -62,6 +62,8 @@ export class ParcelDispatcherAsyncTests extends tsUnit.TestClass {
         
     }
 
+    
+
     public canHandleMultiplePromisesWithStatus() {
         var parcelDispatcher = new ParcelDispatcher();
         var updateHandler = new WaitingUpdateHandler();
@@ -91,5 +93,20 @@ export class ParcelDispatcherAsyncTests extends tsUnit.TestClass {
         });
         
     }
+    public doesNotifyParcelTracker(){
+        var parcelDispatcher = new ParcelDispatcher();
+        var parcelTracker = new DefaultParcelTracker();
+        var updateHandler = new UpdateHandler();
+        parcelDispatcher.registerParcelTracker(parcelTracker);
+        parcelDispatcher.registerParcelHandler(ActionType.UpdateName,updateHandler);
+        var parcel = new Parcel("1000","context1");
+        var promise = parcelDispatcher.publishAsync(ActionType.UpdateName,parcel)
+        
+        this.isTrue(parcelTracker.wasTrackParcelCalled, "expected the parcel tracker to be called");
+        this.areIdentical(ActionType.UpdateName,parcelTracker.parcelType,"expected action type to be provided");
+        this.isTrue(parcelTracker.promise instanceof Promise,"expected a valid promise instance");
+        return promise;
+    }
+
 
 }

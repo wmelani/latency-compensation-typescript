@@ -3,7 +3,7 @@
     "compilerOptions": {
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
-        "module": "commonjs",
+        "module": "umd",
         "target": "ES6",
         "sourceMap": true
 

@@ -7,8 +7,10 @@ import { ParcelDispatcherAsyncTests } from './Dispatch/ParcelDispatcherAsyncTest
 
 import { ParcelTests } from './Parcel/ParcelTests' 
 
-var testRunner = new tsUnit.Test(ParcelDispatcherTests,ParcelTests);
-var asyncTestRunner = new tsUnitAsync.TestAsync(ParcelDispatcherAsyncTests);
+import { ParcelTrackerTests } from './Dispatch/ParcelTrackerTests' 
+import { ParcelTrackerAsyncTests } from './Dispatch/ParcelTrackerAsyncTests' 
+var testRunner = new tsUnit.Test(ParcelDispatcherTests,ParcelTests,ParcelTrackerTests);
+var asyncTestRunner = new tsUnitAsync.TestAsync(ParcelDispatcherAsyncTests,ParcelTrackerAsyncTests);
 
 // Run the tests
 var asyncResults = asyncTestRunner.runAsync();
